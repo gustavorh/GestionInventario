@@ -8,6 +8,7 @@ import dev.gustavorh.gestioninventario.infrastructure.repositories.ProductReposi
 import java.sql.Connection;
 import java.sql.SQLException;
 
+// TODO: Add Service Layer and Factory Pattern.
 public class GestionInventario {
     public static void main(String[] args) {
         try (Connection connection = DbContext.getInstance()) {
