@@ -62,6 +62,9 @@ public class ProductRepository implements GenericRepository<Product> {
             stmt.setString(2, entity.getDescription());
             stmt.setDouble(3, entity.getPrice());
             stmt.setInt(4, entity.getStock());
+            if (entity.getId() != null && entity.getId() > 0) {
+                stmt.setLong(5, entity.getId());
+            }
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
