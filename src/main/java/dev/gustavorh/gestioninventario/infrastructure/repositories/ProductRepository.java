@@ -18,7 +18,7 @@ public class ProductRepository implements GenericRepository<Product> {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAll() throws SQLException {
         List<Product> products = new ArrayList<>();
         try (Statement statement = getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT p.*, c.nombre AS categoria FROM productos AS p INNER JOIN categorias AS c ON (p.categoria_id = c.id)")) {
@@ -26,15 +26,12 @@ public class ProductRepository implements GenericRepository<Product> {
                 Product product = getProduct(rs);
                 products.add(product);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-
         return products;
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product findById(Long id) throws SQLException {
         Product product = null;
         try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT p.*, c.nombre AS categoria FROM productos AS p INNER JOIN categorias AS c ON (p.categoria_id = c.id) WHERE p.id = ?")) {
@@ -44,14 +41,12 @@ public class ProductRepository implements GenericRepository<Product> {
                     product = getProduct(rs);
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return product;
     }
 
     @Override
-    public void save(Product entity) {
+    public void save(Product entity) throws SQLException {
         String query;
         if (entity.getId() != null && entity.getId() > 0) {
             query = "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, categoria_id = ? WHERE id = ?";
@@ -68,18 +63,14 @@ public class ProductRepository implements GenericRepository<Product> {
                 stmt.setLong(6, entity.getId());
             }
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM productos WHERE id = ?")) {
             stmt.setLong(1, id);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
