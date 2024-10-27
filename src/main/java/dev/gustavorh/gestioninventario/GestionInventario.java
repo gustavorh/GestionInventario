@@ -1,27 +1,20 @@
 package dev.gustavorh.gestioninventario;
 
+import dev.gustavorh.gestioninventario.domain.models.Product;
+import dev.gustavorh.gestioninventario.infrastructure.persistence.DbContext;
+import dev.gustavorh.gestioninventario.infrastructure.repositories.GenericRepository;
+import dev.gustavorh.gestioninventario.infrastructure.repositories.ProductRepository;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class GestionInventario {
-    public static void main(String[] args) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/GestionInventario";
-        String user = "java";
-        String password = "sasa";
-
-        Connection conn = DriverManager.getConnection(url, user, password);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM productos");
-
-        while (rs.next()) {
-            System.out.println(rs.getLong("id"));
-            System.out.println(rs.getString("nombre"));
+    public static void main(String[] args) {
+        try (Connection connection = DbContext.getInstance()) {
+            GenericRepository<Product> productRepository = new ProductRepository();
+            productRepository.findAll().forEach(p -> System.out.println(p.getName()));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        rs.close();
-        stmt.close();
-        conn.close();
     }
 }
