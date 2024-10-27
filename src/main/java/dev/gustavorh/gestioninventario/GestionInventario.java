@@ -30,16 +30,20 @@ public class GestionInventario {
             // productRepository.findAll().forEach(System.out::println);
 
             System.out.println("========== [ ACTUALIZAR ] ==========");
-            Product updateProduct = new Product();
-            updateProduct.setId(6L);
-            updateProduct.setName("MacBook Air M1");
-            updateProduct.setDescription("Apple MacBook");
-            updateProduct.setPrice(1500000.0);
-            updateProduct.setStock(10);
-            productRepository.save(updateProduct);
-            System.out.println("Producto actualizado con éxito!");
-            productRepository.findAll().forEach(System.out::println);
+//            Product updateProduct = new Product();
+//            updateProduct.setId(6L);
+//            updateProduct.setName("MacBook Air M1");
+//            updateProduct.setDescription("Apple MacBook");
+//            updateProduct.setPrice(1500000.0);
+//            updateProduct.setStock(10);
+//            productRepository.save(updateProduct);
+//            System.out.println("Producto actualizado con éxito!");
+//            productRepository.findAll().forEach(System.out::println);
 
+            System.out.println("========== [ ELIMINAR ] ==========");
+            productRepository.delete(7L);
+            System.out.println("Producto eliminado con éxito!");
+            productRepository.findAll().forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace();
         }
