@@ -7,6 +7,7 @@ public class Product {
     private Double price;
     private Integer stock;
 
+
     public Long getId() {
         return id;
     }
@@ -45,5 +46,16 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                '}';
     }
 }

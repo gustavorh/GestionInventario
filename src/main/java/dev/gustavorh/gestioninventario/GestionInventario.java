@@ -12,7 +12,23 @@ public class GestionInventario {
     public static void main(String[] args) {
         try (Connection connection = DbContext.getInstance()) {
             GenericRepository<Product> productRepository = new ProductRepository();
-            productRepository.findAll().forEach(p -> System.out.println(p.getName()));
+
+            System.out.println("========== [ LISTAR TODO ] ==========");
+            productRepository.findAll().forEach(System.out::println);
+
+            System.out.println("========== [ LISTAR POR ID ] ==========");
+            System.out.println(productRepository.findById(2L));
+
+            System.out.println("========== [ INSERTAR ] ==========");
+            Product product = new Product();
+            product.setName("MacBook Air M4");
+            product.setDescription("Apple MacBook");
+            product.setPrice(1000000.0);
+            product.setStock(25);
+            productRepository.save(product);
+            System.out.println("Producto guardado con éxito!");
+            productRepository.findAll().forEach(System.out::println);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
