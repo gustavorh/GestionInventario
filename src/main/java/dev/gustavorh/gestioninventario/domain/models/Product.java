@@ -6,7 +6,15 @@ public class Product {
     private String description;
     private Double price;
     private Integer stock;
+    private Category category;
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -56,6 +64,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
+                ", category=" + category.getName() +
                 '}';
     }
 }
